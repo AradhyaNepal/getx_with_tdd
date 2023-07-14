@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -7,14 +9,19 @@ import '../model/post.dart';
 
 class AvailablePostsController extends GetxController
     with StateMixin<List<Post>> {
-  void loadPosts() async {
+
+  @override
+  void onInit() async{
+    super.onInit();
     try {
+      change(null,status:RxStatus.loading());
       final response = await http.get(
         Uri.parse("https://jsonplaceholder.typicode.com/posts"),
       );
       if (response.statusCode < 300) {
+        final data=jsonDecode(response.body) as List;
         change(
-          (response.body as List).map((e) => Post.fromJson(e)).toList(),
+          data.map((e) => Post.fromJson(e)).toList(),
           status: RxStatus.success(),
         );
       } else {
@@ -26,6 +33,7 @@ class AvailablePostsController extends GetxController
       change(null, status: RxStatus.error(e.toString()));
     }
   }
+
 }
 
 class EditDeleteController extends GetxController {
@@ -52,8 +60,8 @@ class EditDeleteController extends GetxController {
       Get.showSnackbar(GetSnackBar(title: e.toString()));
     }
     isEditing.value = false;
-    AvailablePostsController controller = Get.find();
-    controller.loadPosts();
+    // AvailablePostsController controller = Get.find();
+    // controller.onInit(); Todo: Update the UI
   }
 
   void deletePost(int postId) async {
@@ -76,7 +84,7 @@ class EditDeleteController extends GetxController {
       Get.showSnackbar(GetSnackBar(title: e.toString()));
     }
     isDeleting.value = false;
-    AvailablePostsController controller = Get.find();
-    controller.loadPosts();
+    // AvailablePostsController controller = Get.find();
+    // controller.loadPosts(); Todo: Update the UI
   }
 }

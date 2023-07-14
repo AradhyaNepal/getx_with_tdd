@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/counter/counter_screen.dart';
+import 'package:getx/crud/controller/posts_controller.dart';
 import 'package:getx/crud/crud_home.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           title: const Text("Home Screen"),
         ),
         body: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           height:size.height,
           width: size.width,
           child: SingleChildScrollView(
@@ -29,8 +30,11 @@ class HomeScreen extends StatelessWidget {
                   child: const Text("Counter"),
                 ),
                 ElevatedButton(
-                  onPressed: (){
-                    Get.toNamed(CrudHome.route);
+                  onPressed: ()async{
+                    Get.lazyPut(()=>AvailablePostsController());
+                    await Get.toNamed(CrudHome.route,);
+                    debugPrint("Page was closed");
+                    Get.delete<AvailablePostsController>();
                   },
                   child: const Text("CRUD Home"),
                 ),
