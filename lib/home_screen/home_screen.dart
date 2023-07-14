@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/counter/counter_screen.dart';
-import 'package:getx/crud/controller/posts_controller.dart';
+import 'package:getx/crud/controller/available_posts_controller.dart';
 import 'package:getx/crud/crud_home.dart';
 
 class HomeScreen extends StatelessWidget {
