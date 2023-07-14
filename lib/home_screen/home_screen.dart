@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/counter/counter_screen.dart';
+import 'package:getx/crud/crud_home.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,6 +27,12 @@ class HomeScreen extends StatelessWidget {
                     Get.to(const CounterScreen());
                   },
                   child: const Text("Counter"),
+                ),
+                ElevatedButton(
+                  onPressed: (){
+                    Get.toNamed(CrudHome.route);
+                  },
+                  child: const Text("CRUD Home"),
                 ),
               ],
             ),

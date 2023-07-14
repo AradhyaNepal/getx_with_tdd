@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx/crud/crud_home.dart';
 import 'package:getx/home_screen/home_screen.dart';
 
 void main() {
@@ -17,6 +18,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      getPages: [
+        GetPage(
+          name: CrudHome.route,
+          page: ()=>const CrudHome(),
+        ),
+      ],
       home: const HomeScreen(),
     );
   }

@@ -30,9 +30,7 @@ class _CounterScreenState extends State<CounterScreen> {
 }
 
 class _CounterOutput extends StatelessWidget {
-  const _CounterOutput({
-    super.key,
-  });
+  const _CounterOutput({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +51,7 @@ class _CounterOutput extends StatelessWidget {
 }
 
 class _ChangeCounter extends StatelessWidget {
-  const _ChangeCounter({
-    super.key,
-  });
+  const _ChangeCounter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
