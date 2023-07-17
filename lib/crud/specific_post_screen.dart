@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/common/widget/generic_alert.dart';
 import 'package:getx/crud/model/post.dart';
+import 'package:getx/crud/widget/edit_bottom_sheet.dart';
 import 'package:getx/crud/widget/individual_post.dart';
 
 class SpecificPostScreen extends StatelessWidget {
@@ -32,7 +33,16 @@ class SpecificPostScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return EditBottomSheet(
+                            post: post,
+                          );
+                        },
+                      );
+                    },
                     child: const Text("Edit"),
                   ),
                 ),
