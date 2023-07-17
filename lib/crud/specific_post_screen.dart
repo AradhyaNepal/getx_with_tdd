@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx/common/widget/generic_alert.dart';
 import 'package:getx/crud/model/post.dart';
 import 'package:getx/crud/widget/individual_post.dart';
 
@@ -43,7 +44,25 @@ class SpecificPostScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.redAccent,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return GenericAlert(
+                            title: "Delete",
+                            content: "Do you really want to delete?",
+                            onSuccess: () {
+                              //Todo: Implement backend request
+                              Get.showSnackbar(const GetSnackBar(
+                                message: "Successfully deleted",
+                                duration: Duration(seconds: 1),
+                              ));
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
+                    },
                     child: const Text(
                       "Delete",
                       style: TextStyle(color: Colors.white),

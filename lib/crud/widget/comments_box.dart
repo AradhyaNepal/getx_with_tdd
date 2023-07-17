@@ -6,7 +6,7 @@ class Comments extends StatelessWidget {
   final int postId;
   final bool forEdit;
 
-  static CommentsController putComment(int postId){
+  static CommentsController putComment(int postId) {
     return Get.put(CommentsController(postId), tag: postId.toString());
   }
 
@@ -18,7 +18,8 @@ class Comments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CommentsController controller = forEdit?Get.find(tag: postId.toString()):putComment(postId);
+    CommentsController controller =
+        forEdit ? Get.find(tag: postId.toString()) : putComment(postId);
     return Column(
       children: [
         if (!forEdit)
@@ -42,11 +43,22 @@ class Comments extends StatelessWidget {
                     : Icons.arrow_drop_down)),
               ],
             ),
-          ),
+          )
+        else
+          ...[
+            const Text(
+              "Comments",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+            const Divider(),
+          ],
         Obx(
           () {
             if (controller.showComment.value || forEdit) {
-              final child =  controller.obx((state) {
+              final child = controller.obx((state) {
                 if (state == null) return const SizedBox();
                 return ListView.builder(
                   itemBuilder: (_, index) {
@@ -92,7 +104,6 @@ class Comments extends StatelessWidget {
                   },
                   itemCount: state.length,
                 );
-
               });
               if (forEdit) {
                 return Expanded(child: child);
