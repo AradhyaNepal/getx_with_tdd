@@ -35,6 +35,7 @@ class SpecificPostScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       showModalBottomSheet(
+                        isScrollControlled:true,
                         context: context,
                         builder: (context) {
                           return EditBottomSheet(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx/crud/controller/available_posts_controller.dart';
 import 'package:getx/crud/model/post.dart';
 
 class EditBottomSheet extends StatefulWidget {
@@ -15,17 +16,20 @@ class EditBottomSheet extends StatefulWidget {
 }
 
 class _EditBottomSheetState extends State<EditBottomSheet> {
-  late String _title = widget.post.title;
-  late String _content = widget.post.body;
+  late String _title = "";
+  late String _body = "";
   final _formKey = GlobalKey<FormState>();
+  bool _isLoading=false;
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
+        padding: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -41,41 +45,58 @@ class _EditBottomSheetState extends State<EditBottomSheet> {
                 fontSize: 18,
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             TextFormField(
-              initialValue: _title,
+              initialValue: widget.post.title,
               validator: (v) => v == "" ? "Enter Value" : null,
               onSaved: (v) => _title = v ?? "",
               decoration: const InputDecoration(
-                label: Text("Title",)
-              ),
+                  label: Text(
+                "Title",
+              )),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             TextFormField(
-              initialValue: _content,
+              initialValue: widget.post.body,
               validator: (v) => v == "" ? "Enter Value" : null,
-              onSaved: (v) => _content = v ?? "",
+              onSaved: (v) => _body = v ?? "",
               decoration: const InputDecoration(
-                  label: Text("Content",)
-              ),
+                  label: Text(
+                "Content",
+              )),
             ),
-            const SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: () {
+            const SizedBox(
+              height: 20,
+            ),
+            _isLoading?
+            const Center(
+              child: CircularProgressIndicator(),
+            ):ElevatedButton(
+              onPressed: ()async{
                 if (!_formKey.currentState!.validate()) return;
                 _formKey.currentState?.save();
-                //Todo: Implement Backend
-                Get.showSnackbar(
-                  const GetSnackBar(
-                    message: "Successfully Edited",
-                    duration: Duration(seconds: 1),
-                  ),
+                setState(() {
+                  _isLoading=true;
+                });
+                final AvailablePostsController postController = Get.find();
+                final updatedPost = widget.post.copyWith(
+                  title: _title,
+                  body: _body,
                 );
-                Navigator.pop(context);
+                await postController.editPost(context,updatedPost:updatedPost,);
+                setState(() {
+                  _isLoading=false;
+                });
               },
               child: const Text("Confirm"),
             ),
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),
