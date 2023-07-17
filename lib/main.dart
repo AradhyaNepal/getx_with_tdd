@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx/crud/crud_home.dart';
+import 'package:getx/crud/all_posts_screen.dart';
+import 'package:getx/crud/specific_post_screen.dart';
 import 'package:getx/home_screen/home_screen.dart';
 
 void main() {
@@ -20,8 +21,12 @@ class MyApp extends StatelessWidget {
       ),
       getPages: [
         GetPage(
-          name: CrudHome.route,
-          page: ()=>const CrudHome(),
+          name: AllPostScreen.route,
+          page: ()=>const AllPostScreen(),
+        ),
+        GetPage(
+          name: SpecificPostScreen.route,
+          page: ()=> SpecificPostScreen(),
         ),
       ],
       home: const HomeScreen(),

@@ -3,16 +3,16 @@ import 'package:get/get.dart';
 import 'package:getx/crud/controller/available_posts_controller.dart';
 import 'widget/individual_post.dart';
 
-class CrudHome extends GetView<AvailablePostsController> {
-  static const String route = "/CrudHome";
+class AllPostScreen extends GetView<AvailablePostsController> {
+  static const String route = "/AllPosts";
 
-  const CrudHome({Key? key}) : super(key: key);
+  const AllPostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("CRUD Home"),
+        title: const Text("All Posts"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
